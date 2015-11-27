@@ -1,5 +1,5 @@
 # csf
-用于智能项圈和App的socket长链接接收和推送消息
+用于智能项圈和App的socket长链接的消息接收和推送
 
 使用步骤：<br/>
 1.application/config下面配置db、nsq、ssdb以及mongo<br/>
