@@ -1,0 +1,11 @@
+{
+  "require": {
+    "php": ">=5.4.0",
+    "nette/database": "^2.3",
+    "ssdb/phpssdb": "dev-master",
+    "socloz/nsqphp": "dev-master"
+  },
+  "autoload": {
+    "classmap": []
+  }
+}
