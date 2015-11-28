@@ -12,10 +12,13 @@ class SSDB
 
     public function __construct()
     {
-        $ssdb = [];
-        require_once APPPATH . "config/ssdb.php";
-
+        $ssdb = loadConfig("ssdb", "ssdb");
         $this->ssdb = new SSDB\Client($ssdb["host"], $ssdb["port"]);
+    }
+
+    public function close()
+    {
+        $this->ssdb->close();
     }
 
     public function __call($method, $args)

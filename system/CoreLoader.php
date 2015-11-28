@@ -20,34 +20,6 @@ class CoreLoader
         logMessage('info', 'Loader Class Initialized');
     }
 
-    public function initialize()
-    {
-        $this->_autoloader();
-    }
-
-    protected function _autoloader()
-    {
-        if (file_exists(APPPATH . 'config/autoload.php')) {
-            include(APPPATH . 'config/autoload.php');
-        }
-
-        if (!isset($autoload)) {
-            return;
-        }
-
-        if (isset($autoload["helper"]) && count($autoload["helper"]) > 0) {
-            $this->helper($autoload["helper"]);
-        }
-
-        if (isset($autoload['libraries']) && count($autoload['libraries']) > 0) {
-            $this->library($autoload['libraries']);
-        }
-
-        if (isset($autoload['model'])) {
-            $this->model($autoload['model']);
-        }
-    }
-
     public function helper($helpers = array())
     {
         foreach ($this->_prepFilename($helpers) as $helper) {

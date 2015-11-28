@@ -2,18 +2,22 @@
 
 class Database
 {
+    protected $connection = null;
     protected $db = null;
 
     public function __construct()
     {
-        $database = [];
-        require_once APPPATH . "config/database.php";
-
+        $database = loadConfig("database", "database");
         $dsn = "mysql:host=" . $database["host"] . ";dbname=" . $database["dbname"];
         $user = $database["user"];
         $password = $database["password"];
-        $connection = new Nette\Database\Connection($dsn, $user, $password);
-        $this->db = new Nette\Database\Context($connection);
+        $this->connection = new Nette\Database\Connection($dsn, $user, $password,["lazy"=>true]);
+        $this->db = new Nette\Database\Context($this->connection);
+    }
+
+    public function close()
+    {
+        $this->connection->disconnect();
     }
 
     public function __call($method, $args)

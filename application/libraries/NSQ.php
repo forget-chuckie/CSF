@@ -15,6 +15,11 @@ class NSQ
         $this->nsq = new nsqphp\nsqphp();
     }
 
+    public function close()
+    {
+        $this->nsq = null;
+    }
+
     public function __call($method, $args)
     {
         $callable = array($this->nsq, $method);

@@ -1,5 +1,5 @@
 <?php
-$mongodb = array(
+$config["mongodb"] = array(
     "username" => "",
     "password" => "",
     "host" => "127.0.0.1",

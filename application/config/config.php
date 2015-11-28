@@ -11,10 +11,14 @@ $config["composer_autoload"] = true;
 $config["swoole"]["host"] = "127.0.0.1";
 $config["swoole"]["port"] = 9502;
 $config["swoole"]["daemonize"] = false;
-$config["swoole"]["worker_num"] = 4; // worker_num = cpu*4
-$config["swoole"]["max_request"] = 5000; // beyond this number,worker process die
+$config["swoole"]["worker_num"] = 10; // worker_num = cpu*4
+$config["swoole"]["max_request"] = 1000; // beyond this number,worker process die
 $config["swoole"]["max_conn"] = 1000; // reject other connections while beyond the max_conn number
 $config["swoole"]["dispatch_mode"] = 3;
+$config["swoole"]["task_worker_num"] = 5;
+$config["swoole"]["task_ipc_mode"] = 3;
+$config["swoole"]["task_max_request"] = 1000;
+$config["swoole"]["task_tmpdir"] = "/tmp/task_tmpdir";
 $config["swoole"]["backlog"] = 128; // queue length
 $config["swoole"]["log_file"] = "/tmp/swoole";
 $config["swoole"]["heartbeat_check_interval"] = 20;
@@ -25,6 +29,7 @@ $config["swoole"]["package_eof"] = "\r\n";
 $config["swoole"]["tcp_defer_accept"] = 5;
 $config["swoole"]["discard_timeout_request"] = true;
 $config["swoole"]["enable_reuse_port"] = true;
+$config["swoole"]["data_analysises"] = ["DefaultAnalysis"];
 
 /**
  * log config, you can check ci framework to get detail info:

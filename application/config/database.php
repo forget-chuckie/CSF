@@ -1,8 +1,8 @@
 <?php
 
-$database = [
+$config["database"] = [
     "host" => "localhost",
-    "dbname" => "codera_pet",
+    "dbname" => "spider",
     "user" => "root",
     "password" => "codera2015",
 ];

@@ -2,13 +2,12 @@
 
 class Mongo_client
 {
+    protected $mongo = null;
     protected $db = null;
 
     public function __construct()
     {
-        $mongodb = [];
-        require_once APPPATH . "config/mongodb.php";
-
+        $mongodb = loadConfig("mongodb", "mongodb");
         $options = [
             "db" => $mongodb["db"],
             "connect" => $mongodb["connect"],
@@ -24,8 +23,13 @@ class Mongo_client
             $options["password"] = $password;
         }
 
-        $mongo = new MongoClient("mongodb://" . $mongodb["host"] . ":" . $mongodb["port"], $options);
-        $this->db = $mongo->selectDB($mongodb["db"]);
+        $this->mongo = new MongoClient("mongodb://" . $mongodb["host"] . ":" . $mongodb["port"], $options);
+        $this->db = $this->mongo->selectDB($mongodb["db"]);
+    }
+
+    public function close()
+    {
+        $this->mongo->close(true);
     }
 
     public function __call($method, $args)
