@@ -10,7 +10,7 @@ class ActionExp extends CoreAction
 {
     public function distribute(Array $params)
     {
-        $this->addTarget("Welcome",$params);
+        $this->addTarget("receives/Welcome",$params);
         $this->pub();
     }
 }

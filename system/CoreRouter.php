@@ -1,12 +1,5 @@
 <?php
 
-/**
- * Created by IntelliJ IDEA.
- * User: yang
- * Date: 2015/11/25
- * Time: 14:07
- */
-
 require_once BASEPATH . "CoreAction.php";
 
 class CoreRouter
@@ -15,7 +8,7 @@ class CoreRouter
 
     public function __construct()
     {
-        self::$_routeMap = loadConfig("route", "router");
+        self::$_routeMap = loadConfig("receive_routes", "router");
     }
 
     public function route(Array $params)

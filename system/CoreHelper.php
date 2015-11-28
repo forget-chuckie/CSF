@@ -65,6 +65,12 @@ if (!function_exists("loadClass")) {
 
         if ($name === FALSE) {
             die('Unable to locate the specified class: ' . $class . '.php');
+        }else{
+            $class = str_replace('.php', '', trim($class, '/'));
+
+            if (($lastSlash = strrpos($class, '/')) !== FALSE) {
+                $name = substr($class, ++$lastSlash);
+            }
         }
 
         $instance = isset($param)

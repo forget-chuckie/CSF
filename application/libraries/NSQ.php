@@ -10,9 +10,10 @@ class NSQ
 {
     protected $nsq = null;
 
-    public function __construct()
+    public function __construct(Array $params)
     {
-        $this->nsq = new nsqphp\nsqphp();
+        $lookup = isset($params) ? $params[0] : null;
+        $this->nsq = new nsqphp\nsqphp($lookup);
     }
 
     public function close()
