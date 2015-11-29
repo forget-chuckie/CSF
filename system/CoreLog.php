@@ -1,11 +1,5 @@
 <?php
 
-/**
- * Created by IntelliJ IDEA.
- * User: yang
- * Date: 2015/11/26
- * Time: 10:53
- */
 class CoreLog
 {
     protected $_log_path;
