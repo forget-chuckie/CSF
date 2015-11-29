@@ -1,11 +1,5 @@
 <?php
 
-/**
- * Created by IntelliJ IDEA.
- * User: yang
- * Date: 2015/11/25
- * Time: 14:07
- */
 class CoreLoader
 {
     protected $_ob_level;
