@@ -30,7 +30,7 @@ class CoreRouter
                     $router = $val;
                 }
 
-                $actionInstance = &loadClass($router, "actions/" . $subdir);
+                $actionInstance = &loadClass($router, "actions/" . $subdir, null, false);
 
                 if ($actionInstance instanceof CoreAction) {
                     $actionInstance->distribute($params);

@@ -44,7 +44,6 @@ if (!function_exists("loadClass")) {
     function &loadClass($class, $directory = '', $param = NULL, $isCache = true)
     {
         static $_classes = array();
-
         if (isset($_classes[$class])) {
             return $_classes[$class];
         }
@@ -65,7 +64,7 @@ if (!function_exists("loadClass")) {
 
         if ($name === FALSE) {
             die('Unable to locate the specified class: ' . $class . '.php');
-        }else{
+        } else {
             $class = str_replace('.php', '', trim($class, '/'));
 
             if (($lastSlash = strrpos($class, '/')) !== FALSE) {
@@ -122,18 +121,12 @@ if (!function_exists('logMessage')) {
 if (!function_exists("_errorHandler")) {
     function _errorHandler($severity, $message, $filepath, $line)
     {
-        $isError = (((E_ERROR | E_COMPILE_ERROR | E_CORE_ERROR | E_USER_ERROR) & $severity) === $severity);
-
         if (($severity & error_reporting()) !== $severity) {
             return;
         }
 
         $_error = &loadClass('CoreException');
         $_error->logException($severity, $message, $filepath, $line);
-
-        if ($isError) {
-            die("error occurred,the main process exit.");
-        }
     }
 }
 
@@ -142,8 +135,6 @@ if (!function_exists("_exceptionHandler")) {
     {
         $_error =  &loadClass('CoreException');
         $_error->logException('error', 'Exception: ' . $exception->getMessage(), $exception->getFile(), $exception->getLine());
-
-        die("exception occurred,the main process exit.");
     }
 }
 

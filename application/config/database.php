@@ -2,7 +2,7 @@
 
 $config["database"] = [
     "host" => "localhost",
-    "dbname" => "spider",
+    "dbname" => "#",
     "user" => "root",
-    "password" => "codera2015",
+    "password" => "#",
 ];

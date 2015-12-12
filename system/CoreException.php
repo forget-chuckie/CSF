@@ -1,9 +1,13 @@
 <?php
 
+/**
+ * Created by IntelliJ IDEA.
+ * User: yang
+ * Date: 2015/11/26
+ * Time: 9:47
+ */
 class CoreException
 {
-    public $ob_level;
-
     public $levels = array(
         E_ERROR => 'Error',
         E_WARNING => 'Warning',
@@ -18,11 +22,6 @@ class CoreException
         E_USER_NOTICE => 'User Notice',
         E_STRICT => 'Runtime Notice'
     );
-
-    public function __construct()
-    {
-        $this->ob_level = ob_get_level();
-    }
 
     public function logException($severity, $message, $filepath, $line)
     {

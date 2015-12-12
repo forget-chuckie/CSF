@@ -1,11 +1,5 @@
 <?php
 
-/**
- * Created by IntelliJ IDEA.
- * User: yang
- * Date: 2015/11/27
- * Time: 13:59
- */
 class SSDB
 {
     protected $ssdb = null;

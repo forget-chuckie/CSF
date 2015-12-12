@@ -2,8 +2,8 @@
 
 class Database
 {
-    protected $connection = null;
-    protected $db = null;
+    protected $_connection = null;
+    protected $_db = null;
 
     public function __construct()
     {
@@ -11,18 +11,21 @@ class Database
         $dsn = "mysql:host=" . $database["host"] . ";dbname=" . $database["dbname"];
         $user = $database["user"];
         $password = $database["password"];
-        $this->connection = new Nette\Database\Connection($dsn, $user, $password,["lazy"=>true]);
-        $this->db = new Nette\Database\Context($this->connection);
+        $this->_connection = new Nette\Database\Connection($dsn, $user, $password, ["lazy" => true]);
+        $cacheMemoryStorage = new Nette\Caching\Storages\MemoryStorage;
+        $structure = new Nette\Database\Structure($this->_connection, $cacheMemoryStorage);
+        $conventions = new Nette\Database\Conventions\DiscoveredConventions($structure);
+        $this->_db = new Nette\Database\Context($this->_connection, $structure, $conventions, $cacheMemoryStorage);
     }
 
     public function close()
     {
-        $this->connection->disconnect();
+        $this->_connection->disconnect();
     }
 
     public function __call($method, $args)
     {
-        $callable = array($this->db, $method);
+        $callable = array($this->_db, $method);
         return call_user_func_array($callable, $args);
     }
 }

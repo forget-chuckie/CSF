@@ -1,18 +1,26 @@
 <?php
+$config["connect_routes"] = [
+    "DefaultConnect",
+];
 
 $config["analysis_routes"] = [
-    "DefaultAnalysis",
+    "DefaultAnalysis"
 ];
 
 $config["receive_routes"] = [
-    "10001" => "ActionExp",
+    "ActionExp"
 ];
 
 $config["send_routes"] = [
     "normal" => [
-        "QueuePush",
+        "QueuePush"
     ],
     "loop" => [
         "RedisPush",
     ],
+];
+
+
+$config["close_routes"] = [
+    "DefaultClose",
 ];

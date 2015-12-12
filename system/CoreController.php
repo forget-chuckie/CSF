@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Created by IntelliJ IDEA.
+ * User: yang
+ * Date: 2015/11/25
+ * Time: 14:06
+ */
 class CoreController
 {
     private static $_instance = null;
@@ -9,7 +15,7 @@ class CoreController
     {
         self::$_instance = &$this;
         $this->_params = $params;
-        $this->load = &loadClass("CoreLoader");
+        $this->load = &loadClass("CoreLoader", null, null, false);
         logMessage('info', 'Controller Class Initialized');
     }
 
