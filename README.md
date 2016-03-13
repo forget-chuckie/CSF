@@ -1,14 +1,14 @@
-# csf
+# CSF
 
 > a tcp server framework base on swoole
 
-csf是一个参考了Codeigniter后基于swoole而编写的tcp框架，她定义了一套数据流规范，使得开发tcp服务像http服务一样简单
+CSF是一个参考了Codeigniter后基于swoole而编写的tcp框架，她定义了一套数据流规范，使得开发tcp服务像http服务一样简单
 
 ---
 
 ###1. 基于AACM的数据流
 
-为了让开发tcp像一般的http服务一样简单，csf参考了轻量级MVC框架Codeigniter并结合自身的需求规定了一套AACM（Analysis --> Action --> Controller --> Model)的数据流，其具体含义为：
+为了让开发tcp像一般的http服务一样简单，CSF参考了轻量级MVC框架Codeigniter并结合自身的需求规定了一套AACM（Analysis --> Action --> Controller --> Model)的数据流，其具体含义为：
 
 * Analysis: 采用类似中间件的方式进行数据的解析操作
 * Action: 对数据进行简单的处理，并分发给一个或多个Controller进行处理
@@ -59,7 +59,7 @@ Analysis的作用主要是解析数据协议，其代码如下：
     ];
 ?>
 ```
-analysis_routes允许注册多个解析类，csf会按照你的注册循序进行调用，若需要在某个调用后停止后续解析类的解析，只需将process方法里的$stop设置为true即可
+analysis_routes允许注册多个解析类，CSF会按照你的注册循序进行调用，若需要在某个调用后停止后续解析类的解析，只需将process方法里的$stop设置为true即可
 
 ###4. Action层
 
@@ -121,13 +121,13 @@ Controller层与传统的MVC中的Controller相同，用于业务逻辑的编写
 ?>
 ```
 
-由于csf参考了Codeigniter的实现，因此集成了Codeigniter的一些加载的常用方法：
+由于CSF参考了Codeigniter的实现，因此集成了Codeigniter的一些加载的常用方法：
 
 1. $this->load->library($name,$params,$nickname): $name:加载的库路径，$params:构造函数参数，$nickname:使用时的别名（你可以参考CI文档library部分）
 2. $this->load->model($name): $name: 模型路径（你可以参考CI文档model部分）
 3. $this->load->helper($name): $name: helper路径（你可以参考CI文档helper部分）
 
-除此之外，csf也集成了swoole的task和taskawait方法创建了asyncTask和syncTask方法，其使用如下：
+除此之外，CSF也集成了swoole的task和taskawait方法创建了asyncTask和syncTask方法，其使用如下：
 
 ```PHP
 <?php
@@ -198,7 +198,7 @@ Model层与传统的MVC中的Model相同，用来抽象模型，一个Model的�
 
 ###7. Composer与Library
 
-csf会自动加载composer，大部分csf存在的library都只是composer相关库的wrapper而已，例如：
+CSF会自动加载composer，大部分CSF存在的library都只是composer相关库的wrapper而已，例如：
 
 ```PHP
 <?php
@@ -238,7 +238,7 @@ csf会自动加载composer，大部分csf存在的library都只是composer相关
 若需要关闭自动的composer，你可以在config/config.php中找到相关配置进行关闭
 
 ###8. 连接池的使用
-csf自身不支持连接池，但是基于library及syncTask我们可以从逻辑上编写一个连接池：
+CSF自身不支持连接池，但是基于library及syncTask我们可以从逻辑上编写一个连接池：
 
 * 首先，当调用model时，不适用$this->load->model方法，反而使用$this->syncTask方法去调用DBPoolCaller
 
@@ -385,7 +385,7 @@ one req use(ms):    0.997
 ```
 
 ###10. 更多
-csf已经被用在了我们自己的线上并且性能还相当不错，其核心代码及配置都相当简单，若出现问题，你可以通过阅读system下面的源码及config的相关配置了解各个方法和参数的含义，当然由于水平有限，csf肯定是不完善的，你可以通过pull request直接提交你的修改，你也可以通过zyeros1991@gmail.com联系我
+CSF已经被用在了我们自己的线上并且性能还相当不错，其核心代码及配置都相当简单，若出现问题，你可以通过阅读system下面的源码及config的相关配置了解各个方法和参数的含义，当然由于水平有限，CSF肯定是不完善的，你可以通过pull request直接提交你的修改，你也可以通过zyeros1991@gmail.com联系我
 
 
 
