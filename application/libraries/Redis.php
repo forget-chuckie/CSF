@@ -10,8 +10,9 @@ class Redis
         $this->redis = new Predis\Client($config);
     }
 
-    public function close()
+    public function __destruct()
     {
+        logMessage('info','redis destruct...');
         $this->redis->disconnect();
     }
 

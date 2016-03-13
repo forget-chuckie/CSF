@@ -2,6 +2,7 @@
 
 class NSQ
 {
+    const NSQ_ADDRESS = '172.16.20.173';
     protected $nsq = null;
 
     public function __construct(Array $params)
@@ -10,8 +11,9 @@ class NSQ
         $this->nsq = new nsqphp\nsqphp($lookup);
     }
 
-    public function close()
+    public function __destruct()
     {
+        logMessage('info','nsq destruct...');
         $this->nsq = null;
     }
 

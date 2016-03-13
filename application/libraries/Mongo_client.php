@@ -5,9 +5,10 @@ class Mongo_client
     protected $mongo = null;
     protected $db = null;
 
-    public function __construct()
+    public function __construct($config = [])
     {
         $mongodb = loadConfig("mongodb", "mongodb");
+        $mongodb = array_merge($mongodb, $config);
         $options = [
             "db" => $mongodb["db"],
             "connect" => $mongodb["connect"],
@@ -27,8 +28,9 @@ class Mongo_client
         $this->db = $this->mongo->selectDB($mongodb["db"]);
     }
 
-    public function close()
+    public function __destruct()
     {
+        logMessage('info', 'mongo destruct...');
         $this->mongo->close(true);
     }
 

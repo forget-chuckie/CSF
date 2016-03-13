@@ -18,8 +18,9 @@ class Database
         $this->_db = new Nette\Database\Context($this->_connection, $structure, $conventions, $cacheMemoryStorage);
     }
 
-    public function close()
+    public function __destruct()
     {
+        logMessage('info','database destruct...');
         $this->_connection->disconnect();
     }
 

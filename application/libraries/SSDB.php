@@ -10,8 +10,9 @@ class SSDB
         $this->ssdb = new SSDB\Client($ssdb["host"], $ssdb["port"]);
     }
 
-    public function close()
+    public function __destruct()
     {
+        logMessage('info','ssdb destruct...');
         $this->ssdb->close();
     }
 

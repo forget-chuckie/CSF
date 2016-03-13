@@ -8,7 +8,7 @@ $config["analysis_routes"] = [
 ];
 
 $config["receive_routes"] = [
-    "ActionExp"
+    10001 => "DefaultAction"
 ];
 
 $config["send_routes"] = [
