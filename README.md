@@ -375,6 +375,7 @@ CSF自身不支持连接池，但是基于library及syncTask我们可以从逻�
 benchmark里面存放了压力测试相关的代码，你可以通过阅读并修改config.php相关数据后启动php run.php执行压力测试，测试结果如下：
 
 ```shell
+#1核2G机器上 30worker 7task 上线操作压测
 concurrency:    10000
 request num:    50000
 lost num:   0
