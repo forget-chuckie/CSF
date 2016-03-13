@@ -19,7 +19,7 @@ class CoreController
         logMessage('info', 'Controller Class Initialized');
     }
 
-    public function async($task, $handler, Array $data)
+    public function asyncTask($task, $handler, Array $data)
     {
         $serv = $this->_params["serv"];
         $serv->task([
@@ -27,6 +27,16 @@ class CoreController
             "data" => $data,
             "handler" => $handler,
         ]);
+    }
+
+    public function syncTask($task, $handler, Array $data = [], $timeout = 0.5)
+    {
+        $serv = $this->_params["serv"];
+        return $serv->taskwait([
+            "task" => $task,
+            "data" => $data,
+            "handler" => $handler,
+        ], $timeout);
     }
 
     public static function getInstance()

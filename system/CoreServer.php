@@ -107,7 +107,7 @@ class CoreServer
 
     public function onFinish(swoole_server $serv, $taskId, $data)
     {
-        echo "AsyncTask[$taskId] Finish: $data" . PHP_EOL;
+        echo "task[$taskId] Finish: $data" . PHP_EOL;
     }
 
     protected function _process($data)
@@ -144,7 +144,7 @@ class CoreServer
 
             $serv->addProcess($process);
 
-            if($stop){
+            if ($stop) {
                 break;
             }
         }

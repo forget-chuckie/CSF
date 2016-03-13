@@ -13,10 +13,10 @@ $config["receive_routes"] = [
 
 $config["send_routes"] = [
     "normal" => [
-        "QueuePush"
+        "DefaultConsumer"
     ],
     "loop" => [
-        "RedisPush",
+        "DefaultPush",
     ],
 ];
 

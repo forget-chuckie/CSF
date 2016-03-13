@@ -1,12 +1,6 @@
 <?php
 
-/**
- * Created by IntelliJ IDEA.
- * User: yang
- * Date: 2015/11/28
- * Time: 16:06
- */
-class RedisPush extends CoreController
+class DefaultPush extends CoreController
 {
     private $serv = null;
 
@@ -18,7 +12,7 @@ class RedisPush extends CoreController
 
     public function process(&$stop)
     {
-        var_dump("redis start...");
+        var_dump("default push start...");
         $stop = true;
     }
 }
