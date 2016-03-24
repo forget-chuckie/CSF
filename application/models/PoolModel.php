@@ -18,11 +18,4 @@ class PoolModel extends CoreModel
             self::$_pool = $this->db;
         }
     }
-
-    protected function _reset()
-    {
-        $this->db = null;
-        $this->load->library("Db_pool", null, "db");
-        self::$_pool = $this->db;
-    }
 }

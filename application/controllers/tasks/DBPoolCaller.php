@@ -2,9 +2,7 @@
 
 class DBPoolCaller extends CoreController
 {
-
     private $serv = null;
-
     public function __construct(Array $params)
     {
         parent::__construct($params);
@@ -27,7 +25,16 @@ class DBPoolCaller extends CoreController
                 $this->load->model($model);
                 $obj = $maps[$model] = $this->$model;
             }
-            $results = $obj->$method($params);
+
+            try {
+                $results = $obj->$method($params);
+            } catch (Exception $e) {
+                $this->load = &loadClass("CoreLoader", null, null, false);
+                $this->$model = null;
+                $this->load->model($model);
+                $obj = $maps[$model] = $this->$model;
+                $results = $obj->$method($params);
+            }
         }
 
         $this->serv->finish(json_encode($results));
