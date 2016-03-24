@@ -256,38 +256,48 @@ CSF自身不支持连接池，但是基于library及syncTask我们可以从逻�
 
 ```PHP
 <?php
-   class DBPoolCaller extends CoreController
+
+class DBPoolCaller extends CoreController
+{
+    private $serv = null;
+    public function __construct(Array $params)
     {
-        private $serv = null;
-        public function __construct(Array $params)
-        {
-            parent::__construct($params);
-            $this->serv = $params["serv"];
-        }
+        parent::__construct($params);
+        $this->serv = $params["serv"];
+    }
 
 
-        public function process($data)
-        {
-            static $maps = [];
+    public function process($data)
+    {
+        static $maps = [];
 
-            $model = $data["model"];
-            $method = $data["method"];
-            $params = $data["params"];
-            if (!$model || !$method || !$params) {
-                $this->serv->finish(false);
-            } else {
-                $obj = $maps[$model];
-                if (!$obj) {
-                    $this->load->model($model);
-                    $obj = $maps[$model] = $this->$model;
-                }
-                $results = $obj->$method($params);
+        $model = $data["model"];
+        $method = $data["method"];
+        $params = $data["params"];
+        if (!$model || !$method || !$params) {
+            $this->serv->finish(false);
+        } else {
+            $obj = $maps[$model];
+            if (!$obj) {
+                $this->load->model($model);
+                $obj = $maps[$model] = $this->$model;
             }
 
-            $this->serv->finish(json_encode($results));
+            try {
+                $results = $obj->$method($params);
+            } catch (Exception $e) {
+                $this->load = &loadClass("CoreLoader", null, null, false);
+                $this->$model = null;
+                $this->load->model($model);
+                $obj = $maps[$model] = $this->$model;
+                $results = $obj->$method($params);
+            }
         }
-    } 
-?>
+
+        $this->serv->finish(json_encode($results));
+    }
+}
+
 ```
 
 * 在library中创建一个Db_pool.php，继承Database的__desturct方法（禁止关闭连接）
@@ -327,13 +337,6 @@ CSF自身不支持连接池，但是基于library及syncTask我们可以从逻�
                 self::$_pool = $this->db;
             }
         }
-
-        protected function _reset()
-        {
-            $this->db = null;
-            $this->load->library("Db_pool", null, "db");
-            self::$_pool = $this->db;
-        }
     }
 ?>
 ```
@@ -355,17 +358,10 @@ CSF自身不支持连接池，但是基于library及syncTask我们可以从逻�
 
         public function findTokenById($id)
         {
-            $row = [];
-            try {
-                $querySQL = "xxxxxxxxxxxxxxxx";
-                $res = self::$_pool->query($querySQL, $id);
-                $row = $res->fetch();
-                $row = (array)$row;
-            } catch (Exception $e) {
-                parent::_reset();
-            } finally {
-                return $row;
-            }
+            $querySQL = "xxxxxxxxxxxxxxxx";
+            $res = self::$_pool->query($querySQL, $id);
+            $row = $res->fetch();
+            return (array)$row;
         }
     }
 ?>
@@ -387,9 +383,3 @@ one req use(ms):    0.997
 
 ###10. 更多
 CSF已经被用在了我们自己的线上并且性能还相当不错，其核心代码及配置都相当简单，若出现问题，你可以通过阅读system下面的源码及config的相关配置了解各个方法和参数的含义，当然由于水平有限，CSF肯定是不完善的，你可以通过pull request直接提交你的修改，你也可以通过zyeros1991@gmail.com联系我
-
-
-
-
-
-
