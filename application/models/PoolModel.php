@@ -1,11 +1,5 @@
 <?php
 
-/**
- * Created by IntelliJ IDEA.
- * User: yang
- * Date: 2016/3/11
- * Time: 17:28
- */
 class PoolModel extends CoreModel
 {
     protected static $_pool = null;
@@ -14,8 +8,14 @@ class PoolModel extends CoreModel
     {
         parent::__construct();
         if (self::$_pool == null) {
-            $this->load->library("Db_pool", null, "db");
-            self::$_pool = $this->db;
+            $this->loadDb();
         }
+    }
+
+    public function loadDb(){
+    	$CN = &getInstance();
+    	$CN->db = null;
+    	$this->load->library("Db_pool", null, "db");
+        self::$_pool = $this->db;
     }
 }
