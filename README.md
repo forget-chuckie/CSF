@@ -289,6 +289,7 @@ class DBPoolCaller extends CoreController
                 $this->load = &loadClass("CoreLoader", null, null, false);
                 $this->$model = null;
                 $this->load->model($model);
+                $this->$model->loadDb();
                 $obj = $maps[$model] = $this->$model;
                 $results = $obj->$method($params);
             }
@@ -325,20 +326,26 @@ class DBPoolCaller extends CoreController
 
 ```PHP
 <?php
-    class PoolModel extends CoreModel
-    {
-        protected static $_pool = null;
 
-        public function __construct()
-        {
-            parent::__construct();
-            if (self::$_pool == null) {
-                $this->load->library("Db_pool", null, "db");
-                self::$_pool = $this->db;
-            }
+class PoolModel extends CoreModel
+{
+    protected static $_pool = null;
+
+    public function __construct()
+    {
+        parent::__construct();
+        if (self::$_pool == null) {
+            $this->loadDb();
         }
     }
-?>
+
+    public function loadDb(){
+        $CN = &getInstance();
+        $CN->db = null;
+        $this->load->library("Db_pool", null, "db");
+        self::$_pool = $this->db;
+    }
+}
 ```
 
 * 编写相关Model
