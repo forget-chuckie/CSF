@@ -32,6 +32,7 @@ class DBPoolCaller extends CoreController
                 $this->load = &loadClass("CoreLoader", null, null, false);
                 $this->$model = null;
                 $this->load->model($model);
+                $this->$model->loadDb();
                 $obj = $maps[$model] = $this->$model;
                 $results = $obj->$method($params);
             }
